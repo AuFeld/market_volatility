@@ -23,3 +23,7 @@ class VIXStrategy(bt.Strategy):
                 size = int(self.broker.getcash() / self.spyopen[0])
                 print('Buying {} SPY at {}'.format(size, self.spyopen[0]))
                 self.buy(size=size)
+
+        if len(self.spyopen) % 20 == 0: 
+            self.log('Adding 5000 in cash, never selling. I now have {} in cash on the sidelines.'.format(self.broker.getcash()))
+            self.broker.add_cash(5000)

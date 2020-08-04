@@ -11,7 +11,7 @@ class SPYVIXData(bt.feeds.GenericCSVData):
     lines = ('vixopen', 'vixhigh', 'vixlow', 'vixclose')
 
     params = (
-        ('dtformat', %Y-%m-%d'), 
+        ('dtformat', '%Y-%m-%d'), 
         ('date', 0), 
         ('spyopen', 1),
         ('spyhigh', 2),
@@ -25,11 +25,7 @@ class SPYVIXData(bt.feeds.GenericCSVData):
         ('vixclose', 10)
     )
 
-spy_vix_src = 'https://raw.githubusercontent.com/hackingthemarkets/vix-strategy/master/spy_vix.csv'
-vix_src = 'https://raw.githubusercontent.com/hackingthemarkets/vix-strategy/master/vix.csv'
-spy_vix = pd.read_csv(spy_vix_src, index_col=0) 
-vix = pd.read_csv(vix_src, index_col=0)
-
+    
 spyVixDataFeed = SPYVIXData(dataname=spy_vix)
 vixDataFeed = VIXData(dataname=vix)
 cerebro.adddata(spyVixDataFeed)
