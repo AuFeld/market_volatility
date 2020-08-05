@@ -1,7 +1,6 @@
 import backtrader as bt
 import os
 from vix_strategy import VIXStrategy
-import pandas as pd 
 
 
 cerebro = bt.Cerebro()
@@ -25,7 +24,21 @@ class SPYVIXData(bt.feeds.GenericCSVData):
         ('vixclose', 10)
     )
 
-    
+class VIXData(bt.feeds.GenericCSVData):
+    params = (
+        ('dtformat', '%m/%d/%Y'), 
+        ('date', 0), 
+        ('vixopen', 1), 
+        ('vixhigh', 2), 
+        ('vixlow', 3), 
+        ('vixclose', 4), 
+        ('volume', -1), 
+        ('openinterest', -1)
+    )
+
+spy_vix = os.path.dirname(os.path.realpath(__file__)) + '/spy_vix.csv'
+vix = os.path.dirname(os.path.realpath(__file__)) + '/vix.csv'
+
 spyVixDataFeed = SPYVIXData(dataname=spy_vix)
 vixDataFeed = VIXData(dataname=vix)
 cerebro.adddata(spyVixDataFeed)
@@ -34,4 +47,4 @@ cerebro.adddata(vixDataFeed)
 cerebro.addstrategy(VIXStrategy)
 
 cerebro.run()
-cerebro.plot(volume=False)
+cerebro.plot(volume=True)
